@@ -34,11 +34,11 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
     
     const userId = m.messageStubParameters?.[0] || m.sender
-    const userMention = `@${userId.split('@')[0]}`
+    const userName = userId.split('@')[0] /
 
     if (chat.welcome && m.messageStubType == 27) {
         let bienvenida = `❀ *Bienvenido* a *${groupMetadata.subject}*  
-✩ ${userMention}  
+✩ ${userName}  
 ${global.welcom1}  
 ☄︎ Ahora somos *${groupSize}* Miembros.  
 •(=^●ω●^=)• Disfruta tu estadía en el grupo!  
@@ -48,7 +48,7 @@ ${global.welcom1}
 
     if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
         let bye = `❀ *Adiós* de *${groupMetadata.subject}*  
-✩ ${userMention}  
+✩ ${userName}  
 ${global.welcom2}  
 ☄︎ Ahora somos *${groupSize}* Miembros.  
 •(=^●ω●^=)• Te esperamos pronto!  
