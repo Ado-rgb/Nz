@@ -19,7 +19,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
         participant: "0@s.whatsapp.net"
     }
 
-    let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image')
+    let pp = await conn.profilePictureUrl(m.messageStubParameters?.[0] || m.sender, 'image')
         .catch(_ => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
     let img = await (await fetch(pp)).buffer()
 
@@ -32,11 +32,13 @@ export async function before(m, { conn, participants, groupMetadata }) {
     if (m.messageStubType == 27) groupSize++
     else if (m.messageStubType == 28 || m.messageStubType == 32) groupSize--
 
-    const jid = m.messageStubParameters[0] // esto es el JID completo
+    
+    const userId = m.messageStubParameters?.[0] || m.sender
+    const userMention = `@${userId.split('@')[0]}`
 
     if (chat.welcome && m.messageStubType == 27) {
         let bienvenida = `❀ *Bienvenido* a *${groupMetadata.subject}*  
-✩ @${jid}  
+✩ ${userMention}  
 ${global.welcom1}  
 ☄︎ Ahora somos *${groupSize}* Miembros.  
 •(=^●ω●^=)• Disfruta tu estadía en el grupo!  
@@ -46,7 +48,7 @@ ${global.welcom1}
 
     if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
         let bye = `❀ *Adiós* de *${groupMetadata.subject}*  
-✩ @${jid}  
+✩ ${userMention}  
 ${global.welcom2}  
 ☄︎ Ahora somos *${groupSize}* Miembros.  
 •(=^●ω●^=)• Te esperamos pronto!  
