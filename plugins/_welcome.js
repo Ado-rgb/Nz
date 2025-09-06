@@ -32,9 +32,11 @@ export async function before(m, { conn, participants, groupMetadata }) {
     if (m.messageStubType == 27) groupSize++
     else if (m.messageStubType == 28 || m.messageStubType == 32) groupSize--
 
+    const jid = m.messageStubParameters[0] // esto es el JID completo
+
     if (chat.welcome && m.messageStubType == 27) {
         let bienvenida = `❀ *Bienvenido* a *${groupMetadata.subject}*  
-✩ @${m.messageStubParameters[0].split('@')[0]}  
+✩ @${jid}  
 ${global.welcom1}  
 ☄︎ Ahora somos *${groupSize}* Miembros.  
 •(=^●ω●^=)• Disfruta tu estadía en el grupo!  
@@ -44,7 +46,7 @@ ${global.welcom1}
 
     if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
         let bye = `❀ *Adiós* de *${groupMetadata.subject}*  
-✩ @${m.messageStubParameters[0].split('@')[0]}  
+✩ @${jid}  
 ${global.welcom2}  
 ☄︎ Ahora somos *${groupSize}* Miembros.  
 •(=^●ω●^=)• Te esperamos pronto!  
