@@ -167,7 +167,7 @@ export async function handler(chatUpdate) {
         const detectwhat = m.sender.includes('@lid') ? '@lid' : '@s.whatsapp.net';
         const isROwner = [...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + detectwhat).includes(m.sender)
         const isOwner = isROwner || m.fromMe
-        const isMods = isROwner || global.mods.map(v => v.replace(/[^0--9]/g, '') + detectwhat).includes(m.sender)
+        const isMods = isROwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + detectwhat).includes(m.sender)
         const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + detectwhat).includes(m.sender) || _user.premium == true
         
         if (m.isBaileys) return
@@ -378,7 +378,6 @@ export async function handler(chatUpdate) {
                             console.error(e)
                         }
                     }
-                   
                     if (m.coin) this.sendMessage(m.sender, { text: `> *_Gastaste_* ${+m.coin} ${moneda}` })
                 }
                 break
