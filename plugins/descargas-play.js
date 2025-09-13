@@ -30,7 +30,7 @@ const handler = async (m, { conn, text, command }) => {
     const canal = author?.name || "Desconocido"
     const vistas = formatViews(views || 0)
 
-    const infoMessage =`> ${title}
+    const infoMessage =`> *_${title}_*
 ✩ *Duración*: ${timestamp || "no disponible"}
 ✩ *Visitas*: ${vistas}
 ✩ *Autor*: ${canal}
@@ -42,8 +42,8 @@ const handler = async (m, { conn, text, command }) => {
     const preview = {
       contextInfo: {
         externalAdReply: {
-          title: title,
-          body: canal,
+          title: '',
+          body: wm,
           mediaType: 1,
           previewType: 0,
           mediaUrl: url,
@@ -87,7 +87,7 @@ const handler = async (m, { conn, text, command }) => {
         video: { url: downloadUrl },
         mimetype: 'video/mp4',
         fileName: `${title}.mp4`,
-        caption: "✦ Descarga completa. Aquí tienes tu video."
+        caption: "> *_✦ Descarga completa. Aquí tienes tu video._*"
       }, { quoted: m })
     }
 
@@ -104,7 +104,7 @@ handler.command = handler.help = [
 ]
 
 handler.tags = ['descargas']
-handler.group = true
+//handler.group = true
 
 export default handler
 
