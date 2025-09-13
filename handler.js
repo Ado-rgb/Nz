@@ -422,7 +422,7 @@ m.isCommand = true
 let xp = 'exp' in plugin ? parseInt(plugin.exp) : 10
 m.exp += xp
 if (!isPrems && plugin.coin && global.db.data.users[m.sender].coin < plugin.coin * 1) {
-conn.reply(m.chat, `❮✦❯ Se agotaron tus ${moneda}`, m)
+conn.reply(m.chat, `> ➮ Lo sentimos, se agotaron tus *${moneda}*`, m)
 continue
 }
 if (plugin.level > _user.level) {
@@ -473,7 +473,7 @@ await plugin.after.call(this, m, extra)
 console.error(e)
 }}
 if (m.coin)
-conn.reply(m.chat, `❮✦❯ Utilizaste ${+m.coin} ${moneda}`, m)
+conn.reply(m.chat, `> *_Gastaste_* ${+m.coin} ${moneda}`, m)
 }
 break
 }}
