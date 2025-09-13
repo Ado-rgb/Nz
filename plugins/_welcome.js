@@ -38,7 +38,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
     if (chat.welcome && m.messageStubType == 27) {
         let bienvenida = `> *_Bienvenido a ${groupMetadata.subject}_*  
 ✩ *Usuario*: ${usuario}  
-✩ ${global.welcom1}  
+*${global.welcom1}*  
 ✩ Ahora somos *${groupSize}* miembros  
 •(=^●ω●^=)• Disfruta tu estadía en el grupo  
 > ✐ Usa *#help* para ver los comandos`
@@ -53,7 +53,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
     if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
         let bye = `> *_Adiós de ${groupMetadata.subject}_*  
 ✩ *Usuario*: ${usuario}  
-✩ ${global.welcom2}  
+*${global.welcom2}*
 ✩ Ahora somos *${groupSize}* miembros  
 •(=^●ω●^=)• Te esperamos pronto  
 > ✐ Usa *#help* para ver los comandos`
