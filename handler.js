@@ -452,15 +452,15 @@ global.dfail = (type, m, usedPrefix, command, conn) => {
     let user2 = m.pushName || 'Anónimo'
     let verifyaleatorio = ['registrar', 'reg', 'verificar', 'verify', 'register'].getRandom()
     const msg = {
-        rowner: `*_✦ El comando *${command}* solo puede ser usado por el creador del bot._*`,
-        owner: `> *_✦ El comando *${command}* solo puede ser usado por los desarrolladores del bot._*`,
+        rowner: `*_✦ Este comando solo puede ser usado por el creador del bot._*`,
+        owner: `> *_✦ Este comando solo puede ser usado por los desarrolladores del bot._*`,
         mods: `『✦』El comando *${command}* solo puede ser usado por los moderadores del bot.`,
-        premium: `> *_✦ El comando *${command}* solo puede ser usado por los usuarios premium._*`,
-        group: `> *_✦ El comando *${command}* solo puede ser usado en grupos._*`,
-        private: `> *_✦ El comando *${command}* solo puede ser usado al chat privado del bot._*`,
-        admin: `> *_✦ El comando *${command}* solo puede ser usado por los administradores del grupo._*`,
-        botAdmin: `> *_✦ Para ejecutar el comando *${command}* debo ser administrador del grupo._*`,
-        unreg: `> *_✦ El comando *${command}* solo puede ser usado por los usuarios registrado, registrate usando:_*\n> ⟩ /${verifyaleatorio} ${user2}.${edadaleatoria}`,
+        premium: `> *_✦ Este comando solo puede ser usado por los usuarios premium._*`,
+        group: `> *_✦ Este comando solo puede ser usado en grupos._*`,
+        private: `> *_✦ Este comando solo puede ser usado al chat privado del bot._*`,
+        admin: `> *_✦ Este comando solo puede ser usado por los administradores del grupo._*`,
+        botAdmin: `> *_✦ Para ejecutar el comando debo ser administrador del grupo._*`,
+        unreg: `> *_✦ Este comando solo puede ser usado por los usuarios registrado, registrate usando:_*\n> ⟩ /${verifyaleatorio} ${user2}.${edadaleatoria}`,
         restrict: `> *_✦ Esta caracteristica está desactivada._*`
     }[type];
     if (msg) return m.reply(msg).then(_ => m.react('✖️'))
