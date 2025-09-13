@@ -545,16 +545,16 @@ let user2 = m.pushName || 'Anónimo'
 let verifyaleatorio = ['registrar', 'reg', 'verificar', 'verify', 'register'].getRandom()
 
 const msg = {
-rowner: `『✦』El comando *${comando}* solo puede ser usado por los creadores del bot.`, 
-owner: `『✦』El comando *${comando}* solo puede ser usado por los desarrolladores del bot.`, 
+rowner: `*_✦ El comando *${comando}* solo puede ser usado por el creador del bot._*`, 
+owner: `> *_✦ El comando *${comando}* solo puede ser usado por los desarrolladores del bot._*`, 
 mods: `『✦』El comando *${comando}* solo puede ser usado por los moderadores del bot.`, 
-premium: `『✦』El comando *${comando}* solo puede ser usado por los usuarios premium.`, 
-group: `『✦』El comando *${comando}* solo puede ser usado en grupos.`,
-private: `『✦』El comando *${comando}* solo puede ser usado al chat privado del bot.`,
-admin: `『✦』El comando *${comando}* solo puede ser usado por los administradores del grupo.`, 
-botAdmin: `『✦』Para ejecutar el comando *${comando}* debo ser administrador del grupo.`,
-unreg: `『✦』El comando *${comando}* solo puede ser usado por los usuarios registrado, registrate usando:\n> » #${verifyaleatorio} ${user2}.${edadaleatoria}`,
-restrict: `『✦』Esta caracteristica está desactivada.`
+premium: `> *_✦ El comando *${comando}* solo puede ser usado por los usuarios premium._*`, 
+group: `> *_✦ El comando *${comando}* solo puede ser usado en grupos._*`,
+private: `> *_✦ El comando *${comando}* solo puede ser usado al chat privado del bot._*`,
+admin: `> *_✦ El comando *${comando}* solo puede ser usado por los administradores del grupo._*`, 
+botAdmin: `> *_✦ Para ejecutar el comando *${comando}* debo ser administrador del grupo._*`,
+unreg: `> *_✦ El comando *${comando}* solo puede ser usado por los usuarios registrado, registrate usando:_*\n> ⟩ /${verifyaleatorio} ${user2}.${edadaleatoria}`,
+restrict: `> *_✦ Esta caracteristica está desactivada._*`
 }[type];
 if (msg) return m.reply(msg).then(_ => m.react('✖️'))}
 
