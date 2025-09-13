@@ -19,21 +19,21 @@ export async function before(m, { conn, participants, groupMetadata }) {
         participant: "0@s.whatsapp.net"
     }
 
-    let pp = await conn.profilePictureUrl(m.messageStubParameters?.[0] || m.sender, 'image')
+    const userId = m.messageStubParameters?.[0] || m.sender
+    const usuario = `@${userId.split('@')[0]}`
+
+    
+    let pp = await conn.profilePictureUrl(userId, 'image')
         .catch(_ => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
-    let img = await (await fetch(pp)).buffer()
 
     let chat = global.db.data.chats[m.chat]
 
     let txtWelcome = '> *_☄︎ Nuevo miembro_*'
-    let txtBye = '> *_☄︎ Miembro salió_*'
+    let txtBye = '> *_☄︎ Hasta pronto_*'
 
     let groupSize = participants.length
     if (m.messageStubType == 27) groupSize++
     else if (m.messageStubType == 28 || m.messageStubType == 32) groupSize--
-
-    const userId = m.messageStubParameters?.[0] || m.sender
-    const usuario = `@${userId.split('@')[0]}`
 
     if (chat.welcome && m.messageStubType == 27) {
         let bienvenida = `> *_Bienvenido a ${groupMetadata.subject}_*  
@@ -45,7 +45,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
         
         await conn.sendMessage(
             m.chat, 
-            { text: bienvenida, mentions: [userId] }, 
+            { image: { url: pp }, caption: bienvenida, mentions: [userId] }, 
             { quoted: fkontak }
         )
     }
@@ -60,7 +60,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
         
         await conn.sendMessage(
             m.chat, 
-            { text: bye, mentions: [userId] }, 
+            { image: { url: pp }, caption: bye, mentions: [userId] }, 
             { quoted: fkontak }
         )
     }
