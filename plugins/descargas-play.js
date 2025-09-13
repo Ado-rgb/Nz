@@ -43,7 +43,7 @@ const handler = async (m, { conn, text, command }) => {
       contextInfo: {
         externalAdReply: {
           title: '',
-          body: wm,
+          body: botname,
           mediaType: 1,
           previewType: 0,
           mediaUrl: url,
