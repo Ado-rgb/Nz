@@ -1,16 +1,3 @@
-/*⚠ PROHIBIDO EDITAR ⚠
-Este codigo fue modificado, adaptado y mejorado por
-- ReyEndymion >> https://github.com/ReyEndymion
-El codigo de este archivo esta inspirado en el codigo original de:
-- Aiden_NotLogic >> https://github.com/ferhacks
-*El archivo original del MysticBot-MD fue liberado en mayo del 2024 aceptando su liberacion*
-El codigo de este archivo fue parchado en su momento por:
-- BrunoSobrino >> https://github.com/BrunoSobrino
-Contenido adaptado por:
-- GataNina-Li >> https://github.com/GataNina-Li
-- elrebelde21 >> https://github.com/elrebelde21
-*/
-
 const { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, fetchLatestBaileysVersion, Browsers } = (await import("@whiskeysockets/baileys"));
 import qrcode from "qrcode"
 import NodeCache from "node-cache"
@@ -30,8 +17,9 @@ let crm3 = "SBpbmZvLWRvbmFyLmpz"
 let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
-let rtx = "*⪛✰ ↫ Yυƙι  -  Sυσυ  -  Bσƚ ↬ ✰⪜*\n\n✐ Cσɳҽxισɳ SυႦ-Bσƚ Mσԃҽ QR\n\n✰ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
-let rtx2 = "*⪛✰ ↫ Yυƙι  -  Sυσυ  -  Bσƚ ↬ ✰⪜*\n\n✐ Cσɳҽxισɳ SυႦ-Bσƚ Mσԃҽ Cσԃҽ\n\n✰ Usa este Código para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Selecciona Vincular con el número de teléfono\n\n\`4\` » Escriba el Código para iniciar sesion con el bot\n\n✧ No es recomendable usar tu cuenta principal."
+let rtx = "*✦ Acceso Temporal como Sub-Bot mediante QR ✦*\n\n✧ Escanea el siguiente código QR desde otro dispositivo (PC o celular) para iniciar sesión como Sub-Bot.\n\n➊ » Abre WhatsApp y presiona ⋮ (los tres puntos) en la esquina superior derecha.\n\n➋ » Selecciona la opción: Dispositivos vinculados.\n\n➌ » Toca: Escanear código QR.\n\n✧ Escanea este código QR ahora. Tiene una validez de 45 segundos.\n\n✦ Este acceso es temporal y automatizado."
+
+let rtx2 = "✦ Conexión Sub-Bot por Código de 8 digitos ✦\n\n✧ Utiliza este código de acceso para vincularte temporalmente como Sub-Bot sin escanear QR.\n\n➊ » Abre WhatsApp y presiona ⋮ (los tres puntos) en la esquina superior derecha.\n\n➋ » Selecciona: Dispositivos vinculados.\n\n➌ » Toca: Vincular con el número de teléfono.\n\n➍ » Escribe el código que se te ha proporcionado.\n\n✧ Este acceso es temporal. No se recomienda usar cuentas personales."
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
