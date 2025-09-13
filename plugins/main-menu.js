@@ -7,7 +7,8 @@ let uptime = clockString(_uptime)
 let totalreg = Object.keys(global.db.data.users).length
 let totalCommands = Object.values(global.plugins).filter((v) => v.help && v.tags).length
     
-let txt = `⊹ Hola Soy *${botname}* ${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub Bot 🅑')}
+let txt = `⊹ Hola Soy *${botname}* 
+${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Sub Bot 🅑')}
 
 ╭┈ ↷
 │☼ᩚ 𝗨𝘀𝘂𝗮𝗿𝗶𝗼 » @${userId.split('@')[0]}
