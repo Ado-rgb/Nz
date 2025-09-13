@@ -1,49 +1,49 @@
 import fetch from "node-fetch"
-import yts from 'yt-search'
-import axios from "axios"
+import yts from "yt-search"
 
 const youtubeRegexID = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/
 
-const handler = async (m, { conn, text, usedPrefix, command }) => {
+const handler = async (m, { conn, text, command }) => {
   try {
     if (!text?.trim()) {
-      return conn.reply(m.chat, "❀ Por favor, ingresa el nombre de la música a descargar.", m)
+      return conn.reply(m.chat, "✦ Por favor, escribe el nombre o el enlace del video que deseas buscar.", m)
     }
 
-    let videoIdToFind = text.match(youtubeRegexID) || null
-    let ytplay2 = await yts(videoIdToFind === null ? text : 'https://youtu.be/' + videoIdToFind[1])
+    const videoIdMatch = text.match(youtubeRegexID)
+    const searchQuery = videoIdMatch ? `https://youtu.be/${videoIdMatch[1]}` : text
 
-    if (videoIdToFind) {
-      const videoId = videoIdToFind[1]
-      ytplay2 = ytplay2.all.find(item => item.videoId === videoId) || ytplay2.videos.find(item => item.videoId === videoId)
+    const searchResults = await yts(searchQuery)
+    let video = null
+
+    if (videoIdMatch) {
+      const id = videoIdMatch[1]
+      video = searchResults.all.find(v => v.videoId === id) || searchResults.videos.find(v => v.videoId === id)
     }
 
-    ytplay2 = ytplay2.all?.[0] || ytplay2.videos?.[0] || ytplay2
+    if (!video) video = searchResults.videos?.[0] || null
 
-    if (!ytplay2 || ytplay2.length === 0) {
-      return m.reply('✧ No se encontraron resultados para tu búsqueda.')
+    if (!video) {
+      return m.reply("✧ No se encontraron resultados para tu búsqueda.")
     }
 
-    let { title, thumbnail, timestamp, views, ago, url, author } = ytplay2
-    title = title || 'no encontrado'
-    thumbnail = thumbnail || ''
-    timestamp = timestamp || 'no encontrado'
-    views = views || 'no disponible'
-    ago = ago || 'no disponible'
-    url = url || ''
-    author = author || { name: 'Desconocido' }
+    const { title, thumbnail, timestamp, views, ago, url, author } = video
+    const canal = author?.name || "Desconocido"
+    const vistas = formatViews(views || 0)
 
-    const vistas = formatViews(views)
-    const canal = author.name || 'Desconocido'
+    const infoMessage =`> ${title}
+✩ *Duración*: ${timestamp || "no disponible"}
+✩ *Visitas*: ${vistas}
+✩ *Autor*: ${canal}
+✩ *Publicado*: ${ago || "no disponible"}
+✩ *Url*: ${url}`
 
-    const infoMessage = `「✦」Descargando *${title}*\n\n> ✧ Canal » *${canal}*\n> ✰ Vistas » *${vistas}*\n> ⴵ Duración » *${timestamp}*\n> ✐ Publicado » *${ago}*\n> 🜸 Link » ${url}`
     const thumb = (await conn.getFile(thumbnail))?.data
 
-    const JT = {
+    const preview = {
       contextInfo: {
         externalAdReply: {
-          title: botname,
-          body: dev,
+          title: title,
+          body: canal,
           mediaType: 1,
           previewType: 0,
           mediaUrl: url,
@@ -54,22 +54,23 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       },
     }
 
-    await conn.reply(m.chat, infoMessage, m, JT)
+    await conn.reply(m.chat, infoMessage, m, preview)
 
     const isAudio = ['play', 'yta', 'ytmp3', 'playaudio'].includes(command)
     const isVideo = ['play2', 'ytv', 'ytmp4', 'mp4'].includes(command)
 
     if (!isAudio && !isVideo) {
-      return conn.reply(m.chat, '✧︎ Comando no reconocido.', m)
+      return conn.reply(m.chat, "✦ Comando no reconocido. Usa un comando válido para descargar audio o video.", m)
     }
 
-    const format = isAudio ? 'audio' : 'video'
-    const apiUrl = `https://myapiadonix.casacam.net/download/yt?url=${encodeURIComponent(url)}&format=${format}`
+    const format = isAudio ? "audio" : "video"
+    const apiUrl = `https://myapiadonix.casacam.net/download/yt?apikey=Adofreekey&url=${encodeURIComponent(url)}&format=${format}`
+
     const res = await fetch(apiUrl)
     const json = await res.json()
 
     if (!json.status || !json.data?.url) {
-      throw new Error(json.message || 'No se pudo obtener el enlace de descarga.')
+      throw new Error(json.message || "No se pudo obtener el enlace de descarga.")
     }
 
     const downloadUrl = json.data.url
@@ -81,29 +82,34 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
         fileName: `${title}.mp3`,
         ptt: true
       }, { quoted: m })
-    } else if (isVideo) {
+    } else {
       await conn.sendMessage(m.chat, {
         video: { url: downloadUrl },
         mimetype: 'video/mp4',
         fileName: `${title}.mp4`,
-        caption: '☄︎ Descarga completa, aquí tienes tu video.'
+        caption: "✦ Descarga completa. Aquí tienes tu video."
       }, { quoted: m })
     }
 
   } catch (error) {
     console.error('[ERROR YOUTUBE]', error)
-    return m.reply(`⚠︎ Ocurrió un error: ${error.message || error}`)
+    return m.reply(`⚠︎ Se produjo un error al procesar tu solicitud:\n\n${error.message || error}`)
   }
 }
 
-handler.command = handler.help = ['play', 'yta', 'ytmp3', 'play2', 'ytv', 'ytmp4', 'playaudio', 'mp4']
+handler.command = handler.help = [
+  'play', 'yta', 'ytmp3',
+  'play2', 'ytv', 'ytmp4',
+  'playaudio', 'mp4'
+]
+
 handler.tags = ['descargas']
 handler.group = true
 
 export default handler
 
 function formatViews(views) {
-  if (views === undefined) return "No disponible"
+  if (!views) return "0"
   if (views >= 1_000_000_000) return `${(views / 1_000_000_000).toFixed(1)}B (${views.toLocaleString()})`
   if (views >= 1_000_000) return `${(views / 1_000_000).toFixed(1)}M (${views.toLocaleString()})`
   if (views >= 1_000) return `${(views / 1_000).toFixed(1)}k (${views.toLocaleString()})`
