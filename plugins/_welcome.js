@@ -25,34 +25,43 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
     let chat = global.db.data.chats[m.chat]
 
-    let txtWelcome = '☄︎ New Member ✩'
-    let txtBye = '☄︎ Bye Member ✩'
+    let txtWelcome = '> *_☄︎ Nuevo miembro_*'
+    let txtBye = '> *_☄︎ Miembro salió_*'
 
     let groupSize = participants.length
     if (m.messageStubType == 27) groupSize++
     else if (m.messageStubType == 28 || m.messageStubType == 32) groupSize--
 
-    
     const userId = m.messageStubParameters?.[0] || m.sender
-    const userName = userId.split('@')[0] /
+    const usuario = `@${userId.split('@')[0]}`
 
     if (chat.welcome && m.messageStubType == 27) {
-        let bienvenida = `❀ *Bienvenido* a *${groupMetadata.subject}*  
-✩ ${userName}  
-${global.welcom1}  
-☄︎ Ahora somos *${groupSize}* Miembros.  
-•(=^●ω●^=)• Disfruta tu estadía en el grupo!  
-> ✐ Usa *#help* para ver los comandos.`
-        await conn.sendMini(m.chat, txtWelcome, dev, bienvenida, img, img, redes, fkontak)
+        let bienvenida = `> *_Bienvenido a ${groupMetadata.subject}_*  
+✩ *Usuario*: ${usuario}  
+✩ ${global.welcom1}  
+✩ Ahora somos *${groupSize}* miembros  
+•(=^●ω●^=)• Disfruta tu estadía en el grupo  
+> ✐ Usa *#help* para ver los comandos`
+        
+        await conn.sendMessage(
+            m.chat, 
+            { text: bienvenida, mentions: [userId] }, 
+            { quoted: fkontak }
+        )
     }
 
     if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
-        let bye = `❀ *Adiós* de *${groupMetadata.subject}*  
-✩ ${userName}  
-${global.welcom2}  
-☄︎ Ahora somos *${groupSize}* Miembros.  
-•(=^●ω●^=)• Te esperamos pronto!  
-> ✐ Usa *#help* para ver los comandos.`
-        await conn.sendMini(m.chat, txtBye, dev, bye, img, img, redes, fkontak)
+        let bye = `> *_Adiós de ${groupMetadata.subject}_*  
+✩ *Usuario*: ${usuario}  
+✩ ${global.welcom2}  
+✩ Ahora somos *${groupSize}* miembros  
+•(=^●ω●^=)• Te esperamos pronto  
+> ✐ Usa *#help* para ver los comandos`
+        
+        await conn.sendMessage(
+            m.chat, 
+            { text: bye, mentions: [userId] }, 
+            { quoted: fkontak }
+        )
     }
 }
