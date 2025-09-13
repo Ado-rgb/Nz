@@ -25,7 +25,6 @@ var handler = async (m, { conn, args }) => {
         const message = `
 ${emoji} *TikTok Info* ✧
 
-👤 Usuario: @${usuario}
 🕒 Fecha: ${date}
 ❤️ Likes: ${likes.toLocaleString()}
 💬 Comentarios: ${comments.toLocaleString()}
@@ -33,10 +32,16 @@ ${emoji} *TikTok Info* ✧
 ✎ Descripción: ${description}
 `;
 
-        await conn.sendMessage(m.chat, { text: message }, { quoted: m });
-
         if (videoURL) {
-            await conn.sendFile(m.chat, videoURL, "tiktok.mp4", ``, m);
+            await conn.sendMessage(
+                m.chat,
+                { 
+                    video: { url: videoURL },
+                    caption: message,
+                    mimetype: 'video/mp4'
+                },
+                { quoted: m }
+            );
         } else {
             return conn.reply(m.chat, "⚠️ No se pudo descargar el video.", m);
         }
@@ -51,8 +56,7 @@ handler.tags = ['descargas'];
 handler.command = ['tiktok', 'tt'];
 handler.group = true;
 handler.register = true;
-handler.coin = 2;
-handler.limit = true;
+
 
 export default handler;
 
